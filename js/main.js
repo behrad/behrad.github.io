@@ -20,11 +20,11 @@ jQuery(document).ready(function( $ ) {
 
   // JavaScript Chart
   var doughnutData = [{
-      value: 80,
+      value: 90,
       color: "#daa520"
     },
     {
-      value: 20,
+      value: 10,
       color: "#ecf0f1"
     }
   ];
@@ -32,11 +32,11 @@ jQuery(document).ready(function( $ ) {
 
   // Bootstrap Chart
   var doughnutData = [{
-    value: 90,
+    value: 80,
     color: "#daa520"
   },
   {
-    value: 10,
+    value: 20,
     color: "#ecf0f1"
   }
   ];
@@ -80,13 +80,49 @@ jQuery(document).ready(function( $ ) {
 
   // Illustrator Chart
   var doughnutData = [{
-    value: 85,
+    value: 75,
     color: "#daa520"
   },
   {
-    value: 15,
+    value: 25,
     color: "#ecf0f1"
   }
   ];
   var myDoughnut = new Chart(document.getElementById("illustrator").getContext("2d")).Doughnut(doughnutData);
+
+  // HTML Chart
+  var doughnutData = [{
+    value: 80,
+    color: "#daa520"
+  },
+    {
+      value: 20,
+      color: "#ecf0f1"
+    }
+  ];
+  var myDoughnut = new Chart(document.getElementById("cd").getContext("2d")).Doughnut(doughnutData);
+
+  // Photoshop Chart
+  var doughnutData = [{
+    value: 90,
+    color: "#daa520"
+  },
+    {
+      value: 10,
+      color: "#ecf0f1"
+    }
+  ];
+  var myDoughnut = new Chart(document.getElementById("ss").getContext("2d")).Doughnut(doughnutData);
+
+  // Illustrator Chart
+  var doughnutData = [{
+    value: 75,
+    color: "#daa520"
+  },
+    {
+      value: 25,
+      color: "#ecf0f1"
+    }
+  ];
+  var myDoughnut = new Chart(document.getElementById("ps").getContext("2d")).Doughnut(doughnutData);
 });

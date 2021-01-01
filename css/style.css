@@ -10,7 +10,7 @@ body {
   font-family: "Lato";
   font-weight: 300;
   font-size: 16px;
-  color: #555;
+  color: #2f2f2f;
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
 }
@@ -39,6 +39,10 @@ h4, h5, h6 {
 p {
   line-height: 28px;
   margin-bottom: 25px;
+}
+
+p more {
+  margin-bottom: 5px;
 }
 
 .centered {
@@ -157,7 +161,7 @@ By default, top navigation bar uses "fixed" position
 }
 
 #section-topbar i {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 /*---------------------------------------------------
@@ -168,7 +172,7 @@ SECTION WRAPS
 
 #headerwrap {
   background: url(../img/header-bg.jpg) no-repeat center top;
-  margin-top: 60px;
+  margin-top: 58px;
   padding-top: 140px;
   text-align: center;
   background-attachment: relative;
@@ -402,4 +406,21 @@ sm {
   padding: 15px;
   font-weight: 600;
   margin: 15px 0;
+}
+
+#intro p {
+  margin-bottom: 0;
+}
+
+#skillswrap p {
+  /*margin-bottom: 0;*/
+}
+
+ul {
+  padding-inline-start: 0px;
+  list-style-type: none;
+}
+
+ul li::before {
+  content: "➣";
 }

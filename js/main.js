@@ -20,11 +20,11 @@ jQuery(document).ready(function( $ ) {
 
   // JavaScript Chart
   var doughnutData = [{
-      value: 90,
+      value: 92,
       color: "#daa520"
     },
     {
-      value: 10,
+      value: 8,
       color: "#ecf0f1"
     }
   ];
@@ -32,11 +32,11 @@ jQuery(document).ready(function( $ ) {
 
   // Bootstrap Chart
   var doughnutData = [{
-    value: 80,
+    value: 85,
     color: "#daa520"
   },
   {
-    value: 20,
+    value: 15,
     color: "#ecf0f1"
   }
   ];
@@ -44,11 +44,11 @@ jQuery(document).ready(function( $ ) {
 
   // WordPress Chart
   var doughnutData = [{
-    value: 75,
+    value: 80,
     color: "#daa520"
   },
   {
-    value: 25,
+    value: 20,
     color: "#ecf0f1"
   }
   ];
@@ -56,11 +56,11 @@ jQuery(document).ready(function( $ ) {
 
   // HTML Chart
   var doughnutData = [{
-    value: 80,
+    value: 85,
     color: "#daa520"
   },
   {
-    value: 20,
+    value: 15,
     color: "#ecf0f1"
   }
   ];
@@ -80,11 +80,11 @@ jQuery(document).ready(function( $ ) {
 
   // Illustrator Chart
   var doughnutData = [{
-    value: 75,
+    value: 80,
     color: "#daa520"
   },
   {
-    value: 25,
+    value: 20,
     color: "#ecf0f1"
   }
   ];
@@ -92,11 +92,11 @@ jQuery(document).ready(function( $ ) {
 
   // HTML Chart
   var doughnutData = [{
-    value: 80,
+    value: 85,
     color: "#daa520"
   },
     {
-      value: 20,
+      value: 25,
       color: "#ecf0f1"
     }
   ];
@@ -116,11 +116,11 @@ jQuery(document).ready(function( $ ) {
 
   // Illustrator Chart
   var doughnutData = [{
-    value: 75,
+    value: 80,
     color: "#daa520"
   },
     {
-      value: 25,
+      value: 20,
       color: "#ecf0f1"
     }
   ];

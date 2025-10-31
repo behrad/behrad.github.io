@@ -4,7 +4,7 @@
 
 ### 1. ساخت فایل‌های استاتیک
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### 2. آپلود فولدر `out` به GitHub Pages
@@ -25,10 +25,10 @@ npm run build
 ## تست محلی
 ```bash
 # اجرای سرور توسعه
-npm run dev
+pnpm run dev
 
 # ساخت و تست استاتیک
-npm run build
+pnpm run build
 npx serve out
 ```
 

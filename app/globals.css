@@ -16,8 +16,8 @@
   --secondary-foreground: oklch(0.1 0 0);
   --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.45 0 0);
-  --accent: oklch(0.32 0.08 250);
-  --accent-foreground: oklch(1 0 0);
+  --accent: oklch(0.78 0.06 65); /* #dfbc92 beige/golden */
+  --accent-foreground: oklch(0.1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.92 0 0);
@@ -132,67 +132,8 @@
     @apply bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20;
   }
 
-  .card-accent {
-    @apply bg-gradient-to-br from-amber-50 to-orange-50/50 border-amber-200;
-  }
-
+  /* Removed beige/accent hover colors */
   .card-hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
-  }
-}
-
-@layer utilities {
-  /* Accessibility utilities */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  .focus-visible:focus-visible {
-    @apply outline-2 outline-offset-2 outline-ring;
-  }
-
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    .text-muted-foreground {
-      @apply text-foreground;
-    }
-    
-    .border-gray-200 {
-      @apply border-foreground;
-    }
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .transition-all,
-    .transition-transform,
-    .transition-colors,
-    .transition-opacity {
-      transition: none !important;
-    }
-    
-    .hover\:scale-105:hover,
-    .hover\:scale-110:hover,
-    .hover\:scale-\[1\.02\]:hover {
-      transform: none !important;
-    }
-  }
-
-  /* Touch-friendly sizing */
-  .touch-manipulation {
-    touch-action: manipulation;
-  }
-
-  /* RTL-specific utilities */
-  [dir="rtl"] .text-balance {
-    text-wrap: balance;
   }
 }

@@ -2,21 +2,18 @@ import Link from "next/link"
 
 export function Navigation() {
   return (
-    <nav className="border-b border-border bg-white">
+    <nav className="border-b border-border bg-white shadow-sm">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-            بهراد زارعی
+            آکادمی توسعه نرم‌افزار
           </Link>
           <div className="flex gap-6">
-            <Link href="/" className="text-foreground hover:text-primary transition-colors">
-              خانه
-            </Link>
-            <Link href="/about" className="text-foreground hover:text-primary transition-colors">
-              درباره من
-            </Link>
-            <Link href="/courses" className="text-foreground hover:text-primary transition-colors">
+            <Link href="/" className="text-foreground hover:text-primary transition-colors font-medium">
               دوره‌ها
+            </Link>
+            <Link href="/about" className="text-foreground hover:text-primary transition-colors font-medium">
+              درباره من
             </Link>
           </div>
         </div>

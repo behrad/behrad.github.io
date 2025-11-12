@@ -54,6 +54,7 @@ export type Course = {
   language: string
   certificate: boolean
   image: string
+  heroImage?: string
   videoUrl: string
   instructor: {
     name: string
@@ -567,7 +568,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
       name: "سازیتو",
       logo: "https://sazito.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.f87ce97d.png&w=384&q=75",
     },
-    { name: "فناپ", logo: "https://fanap.ir/_next/image?url=%2Fimages%2FlogoFa.png&w=256&q=75" },
+    { name: "فناپ", logo: "https://fanap-infra.com/wp-content/uploads/2023/09/Fanap-infra-logo-2.svg" },
   ]
 
   return (
@@ -584,7 +585,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
             <div
               className="absolute inset-0 opacity-30"
               style={{
-                backgroundImage: `url('/classroom-training-session.jpg')`,
+                backgroundImage: `url('${course.heroImage || '/classroom-training-session.jpg'}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 filter: "blur(2px)",
@@ -611,17 +612,17 @@ export default function CoursePageClient({ course }: { course: Course | undefine
 
                   <div className="flex flex-wrap items-center gap-4 mb-6 text-sm">
                     <div className="flex items-center gap-2">
-                      <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                      <span className="font-bold">5.0</span>
-                      <span className="opacity-80">({course.testimonials.length} نظر)</span>
+                      {/* <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" /> */}
+                      {/* <span className="font-bold">5.0</span> */}
+                      {/* <span className="opacity-80">({course.testimonials.length} نظر)</span> */}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Users className="w-5 h-5" />
-                      <span>150+ دانشجو</span>
+                      {/* <Users className="w-5 h-5" /> */}
+                      {/* <span>150+ دانشجو</span> */}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Award className="w-5 h-5" />
-                      <span>گواهینامه معتبر</span>
+                      {/* <Award className="w-5 h-5" /> */}
+                      {/* <span>گواهینامه معتبر</span> */}
                     </div>
                   </div>
 
@@ -652,7 +653,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                       مرورگر شما از ویدیو پشتیبانی نمی‌کند.
                     </video>
                   </div>
-                  <div className="mt-4 text-center text-sm opacity-75">پیش‌نمایش دوره</div>
+                  <div className="mt-4 text-center text-sm opacity-75"></div>
                 </div>
               </div>
             </div>
@@ -713,7 +714,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                       سرفصل‌های دوره
                     </h2>
                     <p className="text-muted-foreground mb-6">
-                      {course.modules.length} ماژول • {course.sessionsCount} • {course.duration} محتوای آموزشی
+                      {course.modules.length} ماژول • {course.sessionsCount} • {course.duration} 
                     </p>
 
                     <Accordion type="single" collapsible className="space-y-3">
@@ -921,7 +922,9 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                           <div>
                             <h3 className="font-bold text-lg mb-2">گارانتی بازگشت وجه</h3>
                             <p className="text-sm text-foreground leading-relaxed">
-                              اگر تا پایان جلسه دوم احساس کردید دوره برای شما مناسب نیست، کل مبلغ را بازگشت می‌دهیم.
+                              اگر تا پایان جلسه سوم به هر دلیلی از شرکت در ادامه دوره منصرف شدید، کل مبلغ را پس میگیرید. 
+                              <br></br>
+                              فقط لازمه به من بازخورد شفاف بدید تا بتونم در صورت نیاز کیفیت دوره رو بالاتر ببرم.
                             </p>
                           </div>
                         </div>
@@ -937,7 +940,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                           <div>
                             <h3 className="font-bold text-lg mb-2">جلسه اول رایگان</h3>
                             <p className="text-sm text-foreground leading-relaxed">
-                              اگر من را نمی‌شناسید یا معرف ندارید، می‌توانید در جلسه اول به صورت رایگان شرکت کنید.
+                              اگر معرف ندارید یا من رو نمیشناسید یا به هر دلیلی دودل هستید که این دوره بدردتون می‌خوره یا نه، می‌تونید جلسه اول رو رایگان ولی با پر کردن فرم ثبت نام شرکت کنید. 
                             </p>
                           </div>
                         </div>

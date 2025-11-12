@@ -11,7 +11,7 @@ export default function HomePage() {
       id: "system-design-1",
       title: "سیستم دیزاین ۱",
       description: "مفاهیم پایه طراحی سیستم‌های مقیاس‌پذیر",
-      image: "/system-design-1.jpg",
+      image: "/classroom-whiteboard-system-design-training.jpg",
       duration: "۱۰ ساعت",
       price: "۲,۵۰۰,۰۰۰ تومان",
       highlights: ["الزامات غیرکارکردی", "معماری کلی", "تریدآف‌های طراحی"],
@@ -20,7 +20,7 @@ export default function HomePage() {
       id: "system-design-2",
       title: "سیستم دیزاین ۲",
       description: "پایداری و پردازش ناهمزمان",
-      image: "/system-design-2.jpg",
+      image: "/classroom-whiteboard-system-design-training.jpg",
       duration: "۱۰ ساعت",
       price: "۲,۵۰۰,۰۰۰ تومان",
       highlights: ["الگوهای Resiliency", "Event-Driven", "Message Queues"],
@@ -60,8 +60,16 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* Header */}
-        <section className="bg-gradient-to-br from-primary via-primary to-blue-900 text-primary-foreground py-12 md:py-16">
-          <div className="container mx-auto px-4 text-center">
+        <section className="relative bg-gradient-to-br from-primary via-primary to-blue-900 text-primary-foreground py-12 md:py-16 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image 
+              src="/classroom-training-session.jpg" 
+              alt="جلسه آموزشی" 
+              fill 
+              className="object-cover opacity-20"
+            />
+          </div>
+          <div className="relative container mx-auto px-4 text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-3">دوره‌های آموزشی</h1>
             <p className="text-lg md:text-xl opacity-90">
               مهارت‌های خود را در طراحی و توسعه سیستم‌های مقیاس‌پذیر ارتقا دهید

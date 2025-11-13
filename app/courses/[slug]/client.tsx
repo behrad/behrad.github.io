@@ -295,12 +295,48 @@ const trackClarityEvent = (eventName: string, eventData?: Record<string, string>
 }
 
 // Registration Form Component
-function RegistrationForm({ onClose }: { onClose: () => void }) {
-  const handleSubmit = (e: React.FormEvent) => {
+function RegistrationForm({ onClose, course }: { onClose: () => void; course?: Course }) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    trackClarityEvent("registration_form_submitted")
-    alert("فرم ثبت‌نام با موفقیت ارسال شد!")
-    onClose()
+    setIsSubmitting(true)
+    
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      mobile: formData.get("mobile"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      attendance: formData.get("attendance"),
+      courseName: course?.title || "",
+      courseSlug: typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "",
+      formType: "registration",
+    }
+
+    try {
+      const response = await fetch("https://n8n.sazito.com/webhook/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        trackClarityEvent("registration_form_submitted")
+        alert("فرم ثبت‌نام با موفقیت ارسال شد!")
+        onClose()
+      } else {
+        alert("خطا در ارسال فرم. لطفا دوباره تلاش کنید.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("خطا در ارسال فرم. لطفا دوباره تلاش کنید.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -320,6 +356,7 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
                 <label className="block text-sm font-medium mb-2">نام</label>
                 <input
                   type="text"
+                  name="firstName"
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="نام خود را وارد کنید"
                   required
@@ -329,6 +366,7 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
                 <label className="block text-sm font-medium mb-2">نام خانوادگی</label>
                 <input
                   type="text"
+                  name="lastName"
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="نام خانوادگی خود را وارد کنید"
                   required
@@ -340,6 +378,7 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
               <label className="block text-sm font-medium mb-2">شماره موبایل</label>
               <input
                 type="tel"
+                name="mobile"
                 className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="09123456789"
                 required
@@ -350,6 +389,7 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
               <label className="block text-sm font-medium mb-2">ایمیل</label>
               <input
                 type="email"
+                name="email"
                 className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="email@example.com"
                 required
@@ -360,6 +400,7 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
               <label className="block text-sm font-medium mb-2">شرکت / سازمان (اختیاری)</label>
               <input
                 type="text"
+                name="company"
                 className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="نام شرکت یا سازمان"
               />
@@ -400,8 +441,8 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
               </div>
             </div>
 
-            <Button type="submit" className="w-full cursor-pointer" size="lg">
-              ثبت درخواست
+            <Button type="submit" className="w-full cursor-pointer" size="lg" disabled={isSubmitting}>
+              {isSubmitting ? "در حال ارسال..." : "ثبت درخواست"}
             </Button>
           </form>
         </div>
@@ -411,12 +452,46 @@ function RegistrationForm({ onClose }: { onClose: () => void }) {
 }
 
 // Consultation Form Component
-function ConsultationForm({ onClose }: { onClose: () => void }) {
-  const handleSubmit = (e: React.FormEvent) => {
+function ConsultationForm({ onClose, course }: { onClose: () => void; course?: Course }) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    trackClarityEvent("consultation_form_submitted")
-    alert("درخواست مشاوره با موفقیت ارسال شد!")
-    onClose()
+    setIsSubmitting(true)
+    
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      mobile: formData.get("mobile"),
+      courseName: course?.title || "",
+      courseSlug: typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "",
+      formType: "consultation",
+    }
+
+    try {
+      const response = await fetch("https://n8n.sazito.com/webhook/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        trackClarityEvent("consultation_form_submitted")
+        alert("درخواست مشاوره با موفقیت ارسال شد!")
+        onClose()
+      } else {
+        alert("خطا در ارسال فرم. لطفا دوباره تلاش کنید.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("خطا در ارسال فرم. لطفا دوباره تلاش کنید.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -436,6 +511,7 @@ function ConsultationForm({ onClose }: { onClose: () => void }) {
                 <label className="block text-sm font-medium mb-2">نام</label>
                 <input
                   type="text"
+                  name="firstName"
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
@@ -444,6 +520,7 @@ function ConsultationForm({ onClose }: { onClose: () => void }) {
                 <label className="block text-sm font-medium mb-2">نام خانوادگی</label>
                 <input
                   type="text"
+                  name="lastName"
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
@@ -454,6 +531,7 @@ function ConsultationForm({ onClose }: { onClose: () => void }) {
               <label className="block text-sm font-medium mb-2">ایمیل</label>
               <input
                 type="email"
+                name="email"
                 className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
@@ -463,13 +541,131 @@ function ConsultationForm({ onClose }: { onClose: () => void }) {
               <label className="block text-sm font-medium mb-2">شماره تماس</label>
               <input
                 type="tel"
+                name="mobile"
                 className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
             </div>
 
-            <Button type="submit" className="w-full cursor-pointer" size="lg">
-              ارسال درخواست
+            <Button type="submit" className="w-full cursor-pointer" size="lg" disabled={isSubmitting}>
+              {isSubmitting ? "در حال ارسال..." : "ارسال درخواست"}
+            </Button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Corporate Training Form Component
+function CorporateTrainingForm({ onClose, course }: { onClose: () => void; course?: Course }) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      mobile: formData.get("mobile"),
+      company: formData.get("company"),
+      courseName: course?.title || "",
+      courseSlug: typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "",
+      formType: "corporate",
+    }
+
+    try {
+      const response = await fetch("https://n8n.sazito.com/webhook/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        trackClarityEvent("corporate_training_form_submitted")
+        alert("درخواست برگزاری دوره با موفقیت ارسال شد!")
+        onClose()
+      } else {
+        alert("خطا در ارسال فرم. لطفا دوباره تلاش کنید.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("خطا در ارسال فرم. لطفا دوباره تلاش کنید.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg max-w-md w-full">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">برگزاری دوره برای تیم/شرکت شما</h2>
+            <button onClick={onClose} className="text-muted-foreground hover:text-foreground cursor-pointer">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">نام</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">نام خانوادگی</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">ایمیل</label>
+              <input
+                type="email"
+                name="email"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">شماره تماس</label>
+              <input
+                type="tel"
+                name="mobile"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">نام شرکت/سازمان</label>
+              <input
+                type="text"
+                name="company"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                required
+              />
+            </div>
+
+            <Button type="submit" className="w-full cursor-pointer" size="lg" disabled={isSubmitting}>
+              {isSubmitting ? "در حال ارسال..." : "ارسال درخواست"}
             </Button>
           </form>
         </div>
@@ -481,6 +677,7 @@ function ConsultationForm({ onClose }: { onClose: () => void }) {
 export default function CoursePageClient({ course }: { course: Course | undefined }) {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false)
   const [showConsultationForm, setShowConsultationForm] = useState(false)
+  const [showCorporateTrainingForm, setShowCorporateTrainingForm] = useState(false)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
 
   if (!course) {
@@ -574,8 +771,9 @@ export default function CoursePageClient({ course }: { course: Course | undefine
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      {showRegistrationForm && <RegistrationForm onClose={() => setShowRegistrationForm(false)} />}
-      {showConsultationForm && <ConsultationForm onClose={() => setShowConsultationForm(false)} />}
+      {showRegistrationForm && <RegistrationForm onClose={() => setShowRegistrationForm(false)} course={course} />}
+      {showConsultationForm && <ConsultationForm onClose={() => setShowConsultationForm(false)} course={course} />}
+      {showCorporateTrainingForm && <CorporateTrainingForm onClose={() => setShowCorporateTrainingForm(false)} course={course} />}
 
       <div className="min-h-screen flex flex-col">
         <Navigation />
@@ -643,15 +841,24 @@ export default function CoursePageClient({ course }: { course: Course | undefine
 
                 <div className="relative">
                   <div className="relative aspect-video rounded-lg overflow-hidden shadow-2xl border-4 border-white/20">
-                    <video
+                    {/* Video section - will be added later */}
+                    {/* <video
                       controls
                       className="w-full h-full"
-                      poster="/system-design-architecture-diagram.jpg"
+                      poster={course.image}
                       onPlay={() => trackClarityEvent("course_video_played")}
                     >
-                      <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                      <source src={course.videoUrl} type="video/mp4" />
                       مرورگر شما از ویدیو پشتیبانی نمی‌کند.
-                    </video>
+                    </video> */}
+                    
+                    {/* Temporary: Show course cover image until video is ready */}
+                    <Image
+                      src={course.image || "/placeholder.svg"}
+                      alt={course.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div className="mt-4 text-center text-sm opacity-75"></div>
                 </div>
@@ -983,12 +1190,12 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                           key={index}
                           className="border-2 shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
                         >
-                          <div className="relative h-48">
+                          <div className="relative h-48 bg-gradient-to-br from-blue-50 to-blue-100 p-4">
                             <Image
                               src={relatedCourse.image || "/placeholder.svg"}
                               alt={relatedCourse.title}
                               fill
-                              className="object-cover rounded-t-lg"
+                              className="object-contain rounded-t-lg p-4"
                             />
                           </div>
                           <CardHeader>
@@ -1001,7 +1208,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                               variant="outline"
                               className="w-full bg-transparent cursor-pointer hover:bg-primary hover:text-white"
                             >
-                              <Link href={`/courses/${relatedCourse.slug}`}>مشاهده جزئیات</Link>
+                              <Link href={`/courses/${relatedCourse.slug}`}>مشاهده دوره</Link>
                             </Button>
                           </CardContent>
                         </Card>
@@ -1038,7 +1245,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                       <div className="space-y-3 mb-6 text-sm">
                         <div className="flex items-center gap-3">
                           <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                          <span>{course.duration} محتوای آموزشی</span>
+                          <span>{course.duration} لایو آموزشی و عملی</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
@@ -1049,17 +1256,32 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                           <span>{course.format}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          <Award className="w-5 h-5 text-primary flex-shrink-0" />
-                          <span>گواهینامه معتبر</span>
+                          <Presentation className="w-5 h-5 text-primary flex-shrink-0" />
+                          <span>تیم‌‌سازی</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          <Presentation className="w-5 h-5 text-primary flex-shrink-0" />
-                          <span>دسترسی به ضبط جلسات</span>
+                
+                          <Award className="w-5 h-5 text-primary flex-shrink-0" />
+                          <span>تضمین بازگشت وجه</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <Gift className="w-5 h-5 text-primary flex-shrink-0" />
                           <span>جلسه اول رایگان</span>
                         </div>
+                      </div>
+
+                      <div className="mb-4">
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="w-full text-lg bg-transparent cursor-pointer hover:bg-primary hover:text-white"
+                          onClick={() => {
+                            trackClarityEvent("corporate_training_button_clicked")
+                            setShowCorporateTrainingForm(true)
+                          }}
+                        >
+                          برگزاری دوره برای تیم/شرکت شما
+                        </Button>
                       </div>
 
                       <div className="mb-6">
@@ -1077,7 +1299,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                       </div>
 
                       <div className="border-t pt-4">
-                        <p className="text-sm font-medium mb-3">اشتراک‌گذاری:</p>
+                        <p className="text-sm font-medium mb-3">اگر فکر می‌کنید این دوره مفیده، به اشتراک بگذاریدش:</p>
                         <div className="flex gap-2">
                           <Button
                             size="sm"

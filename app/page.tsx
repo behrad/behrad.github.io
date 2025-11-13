@@ -10,47 +10,47 @@ export default function HomePage() {
     {
       id: "system-design-1",
       title: "سیستم دیزاین ۱",
-      description: "مفاهیم پایه طراحی سیستم‌های مقیاس‌پذیر",
-      image: "/classroom-whiteboard-system-design-training.jpg",
-      duration: "۱۰ ساعت",
-      price: "۲,۵۰۰,۰۰۰ تومان",
-      highlights: ["الزامات غیرکارکردی", "معماری کلی", "تریدآف‌های طراحی"],
+      description: "ادبیات طراحی سیستم رو یاد میگیریم و یه پروژه واقعی با استاندارد‌های کلود نیتیو و طراحی سیستم روی استک خودتون پیاده سازی میکنیم",
+      image: "/sd1.jpeg",
+      duration: "۱۵ ساعت",
+      price: "۵,۹۰۰,۰۰۰ تومان",
+      highlights: ["مفاهیم پایه", "ماژولار مونولیت کلود نیتیو", "پیاده سازی یک سرویس مالتی تننت واقعی"],
     },
     {
       id: "system-design-2",
       title: "سیستم دیزاین ۲",
-      description: "پایداری و پردازش ناهمزمان",
-      image: "/classroom-whiteboard-system-design-training.jpg",
-      duration: "۱۰ ساعت",
-      price: "۲,۵۰۰,۰۰۰ تومان",
-      highlights: ["الگوهای Resiliency", "Event-Driven", "Message Queues"],
+      description: "تکنیک‌های تاب آوری و دسترس پذیری رو روی پروژه مون پیاده‌سازی میکنیم و انواع معماری و تکنولوژی های صف رو تمرین و مقایسه می‌کنیم",
+      image: "/sd2.jpeg",
+      duration: "۲۱ ساعت",
+      price: "۷,۹۰۰,۰۰۰ تومان",
+      highlights: ["الگوهای تاب آوری", "پردازش غیرهمزمان", "معماری چند دیتابیسی"],
     },
     {
       id: "system-design-3",
       title: "سیستم دیزاین ۳",
-      description: "مقیاس‌پذیری دیتابیس و تخمین ظرفیت",
-      image: "/system-design-3.jpg",
-      duration: "۱۰ ساعت",
-      price: "۲,۵۰۰,۰۰۰ تومان",
-      highlights: ["Sharding & Replication", "NoSQL vs SQL", "تخمین منابع"],
+      description: "الگو‌ها و تجربه‌های واقعی از معماری میکروسرویس رو بررسی میکنیم و روش‌های سازگاری در معماری‌های توزیع شده رو پیاده سازی‌ میکنیم",
+      image: "/sd3.jpeg",
+      duration: "۱۵ ساعت",
+      price: "۵,۹۰۰,۰۰۰ تومان",
+      highlights: ["معماری میکروسرویس", "پیاده‌سازی معماری میکروسرویس در مقیاس بزرگ", "مطالعه مثال‌های بزرگ"],
     },
     {
       id: "art-of-coding",
       title: "هنر کدنویسی",
       description: "پیاده‌سازی با ذهنیت یک معمار",
-      image: "/art-of-coding.jpg",
-      duration: "۱۵ ساعت",
-      price: "۳,۵۰۰,۰۰۰ تومان",
-      highlights: ["DDD & Patterns", "Modularity", "Clean Architecture"],
+      image: "/artOfCoding.jpeg",
+      duration: "۲۱ ساعت",
+      price: "۵,۳۰۰,۰۰۰ تومان",
+      highlights: ["مفاهیم مهندسی نرم افزار", "طراحی لایه‌ای و ماژولار", "چک لیست پروژه اماده پروداکشن"],
     },
     {
       id: "backend-nodejs",
       title: "برنامه‌نویسی بکند با Node.js",
       description: "ساخت API های مقیاس‌پذیر با Node.js",
-      image: "/backend-nodejs.jpg",
+      image: "/nodejs.jpeg",
       duration: "۲۰ ساعت",
       price: "۴,۰۰۰,۰۰۰ تومان",
-      highlights: ["Express & Fastify", "Database Integration", "Authentication"],
+      highlights: ["مقدمات Node.js", "Express & API Design", "Database Integration"],
     },
   ]
 
@@ -70,9 +70,9 @@ export default function HomePage() {
             />
           </div>
           <div className="relative container mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">دوره‌های آموزشی</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">دوره‌ و بوت کمپ‌ها</h1>
             <p className="text-lg md:text-xl opacity-90">
-              مهارت‌های خود را در طراحی و توسعه سیستم‌های مقیاس‌پذیر ارتقا دهید
+              این دوره ها ترکیبی از نئوری و مفاهیم عمقی و تجربه ۲۰ ساله من در توسعه نرم افزار هستن و می تونن در مسیر حرفه‌ای شما از یک برنامه نویس تا تک لید یا مدیر‌فنی مفید باشن تا تصمیمات بهتری در تیم و توسعه نرم افزار بگیرید
             </p>
           </div>
         </section>
@@ -83,8 +83,8 @@ export default function HomePage() {
             {courses.map((course) => (
               <Card key={course.id} className="card-hover-lift flex flex-col overflow-hidden">
                 {/* Course Image */}
-                <div className="relative h-48 w-full bg-gradient-to-br from-blue-100 to-blue-50">
-                  <Image src={course.image || "/placeholder.svg"} alt={course.title} fill className="object-cover" />
+                <div className="relative h-48 w-full bg-gradient-to-br from-blue-100 to-blue-50 p-4">
+                  <Image src={course.image || "/placeholder.svg"} alt={course.title} fill className="object-contain p-4" />
                 </div>
 
                 <CardHeader className="pb-3">
@@ -110,7 +110,7 @@ export default function HomePage() {
                   </div>
 
                   <Button asChild className="w-full">
-                    <Link href={`/courses/${course.id}`}>مشاهده جزئیات</Link>
+                    <Link href={`/courses/${course.id}`}>مشاهده دوره</Link>
                   </Button>
                 </CardContent>
               </Card>

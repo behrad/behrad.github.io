@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   ]
 
   return {
-    title: `${course.title} | آکادمی توسعه نرم‌افزار - بهراد زاری`,
+    title: `${course.title} | مسیر رشد معمار نرم افزار - بهراد زاری`,
     description: course.shortDescription,
     keywords: keywords.join(", "),
     authors: [{ name: "بهراد زاری" }],
@@ -62,5 +62,5 @@ export function generateStaticParams() {
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const course = coursesData[slug as keyof typeof coursesData]
-  return <CoursePageClient course={course} />
+  return <CoursePageClient course={course} slug={slug} />
 }

@@ -11,7 +11,7 @@ const vazirmatn = Vazirmatn({
 })
 
 export const metadata: Metadata = {
-  title: "بهراد زاری - مهندس نرم‌افزار و مربی",
+  title: "دوره‌های طراحی سیستم و معماری نرم افزار",
   description: "پورتفولیو و دوره‌های آموزشی بهراد زاری",
   generator: "v0.app",
 }

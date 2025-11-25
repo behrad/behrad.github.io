@@ -55,7 +55,10 @@ export type Course = {
   certificate: boolean
   image: string
   heroImage?: string
+  descriptionImage?: string
   videoUrl: string
+  rating?: number
+  reviewCount?: number
   instructor: {
     name: string
     title: string
@@ -303,6 +306,20 @@ function RegistrationForm({ onClose, course }: { onClose: () => void; course?: C
     setIsSubmitting(true)
     
     const formData = new FormData(e.currentTarget)
+    
+    // Get the file
+    const paymentReceipt = formData.get("paymentReceipt") as File
+    
+    // Convert file to base64 if exists
+    let paymentReceiptBase64 = ""
+    if (paymentReceipt && paymentReceipt.size > 0) {
+      const reader = new FileReader()
+      paymentReceiptBase64 = await new Promise((resolve) => {
+        reader.onloadend = () => resolve(reader.result as string)
+        reader.readAsDataURL(paymentReceipt)
+      })
+    }
+    
     const data = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
@@ -310,6 +327,8 @@ function RegistrationForm({ onClose, course }: { onClose: () => void; course?: C
       email: formData.get("email"),
       company: formData.get("company"),
       attendance: formData.get("attendance"),
+      paymentReceipt: paymentReceiptBase64,
+      paymentReceiptName: paymentReceipt?.name || "",
       courseName: course?.title || "",
       courseSlug: typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "",
       formType: "registration",
@@ -344,7 +363,7 @@ function RegistrationForm({ onClose, course }: { onClose: () => void; course?: C
       <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">پیش‌ثبت‌نام در دوره</h2>
+            <h2 className="text-2xl font-bold">فرم ثبت‌نام در دوره {course?.title}</h2>
             <button onClick={onClose} className="text-muted-foreground hover:text-foreground cursor-pointer">
               <X className="w-6 h-6" />
             </button>
@@ -408,29 +427,45 @@ function RegistrationForm({ onClose, course }: { onClose: () => void; course?: C
 
             <div>
               <label className="block text-sm font-medium mb-2">نحوه شرکت در دوره</label>
-              <div className="space-y-2">
-                <label className="flex items-center gap-2 p-3 border border-border rounded-lg cursor-pointer hover:bg-muted/50">
+              <div className="flex gap-3">
+                <label className="flex items-center gap-2 p-3 border border-border rounded-lg cursor-pointer hover:bg-muted/50 flex-1">
+                  <input type="radio" name="attendance" value="online" className="w-4 h-4 cursor-pointer" defaultChecked />
+                  <span className="text-sm">آنلاین</span>
+                </label>
+                <label className="flex items-center gap-2 p-3 border border-border rounded-lg cursor-pointer hover:bg-muted/50 flex-1">
                   <input type="radio" name="attendance" value="in-person" className="w-4 h-4 cursor-pointer" />
-                  <span>فقط حضوری</span>
+                  <span className="text-sm">فقط حضوری</span>
                 </label>
-                <label className="flex items-center gap-2 p-3 border border-border rounded-lg cursor-pointer hover:bg-muted/50">
-                  <input type="radio" name="attendance" value="online" className="w-4 h-4 cursor-pointer" />
-                  <span>فقط آنلاین</span>
-                </label>
-                <label className="flex items-center gap-2 p-3 border border-border rounded-lg cursor-pointer hover:bg-muted/50">
+                <label className="flex items-center gap-2 p-3 border border-border rounded-lg cursor-pointer hover:bg-muted/50 flex-1">
                   <input
                     type="radio"
                     name="attendance"
                     value="both"
                     className="w-4 h-4 cursor-pointer"
-                    defaultChecked
                   />
-                  <span>فرقی نمی‌کند</span>
+                  <span className="text-sm">فرقی نمی‌کند</span>
                 </label>
               </div>
             </div>
 
             <div>
+              <label className="block text-sm font-medium mb-2">
+                مبلغ <span className="font-bold text-red-600">{Math.round((course?.priceNumber || 0) * 0.6).toLocaleString('fa-IR')} تومان</span> را به شماره کارت <span className="font-bold text-primary">۶۳۶۲۱۴۱۰۸۲۴۴۳۶۱۶</span> بنام بهراد زاری بانک ملی (آینده سابق) واریز نموده و عکس فیش بانکی رو ارسال کنید
+              </label>
+              <label className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer block">
+                <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                <p className="text-sm text-muted-foreground">کلیک کنید یا فایل را بکشید</p>
+                <input type="file" name="paymentReceipt" className="hidden" accept="image/*" onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const label = e.target.parentElement?.querySelector('p');
+                    if (label) label.textContent = file.name;
+                  }
+                }} />
+              </label>
+            </div>
+
+            {/* <div>
               <label className="block text-sm font-medium mb-2">
                 عکس کارت دانشجویی (برای دریافت تخفیف ۳۰٪ دانشجویی)
               </label>
@@ -439,10 +474,10 @@ function RegistrationForm({ onClose, course }: { onClose: () => void; course?: C
                 <p className="text-sm text-muted-foreground">کلیک کنید یا فایل را بکشید</p>
                 <input type="file" className="hidden" accept="image/*" />
               </div>
-            </div>
+            </div> */}
 
             <Button type="submit" className="w-full cursor-pointer" size="lg" disabled={isSubmitting}>
-              {isSubmitting ? "در حال ارسال..." : "ثبت درخواست"}
+              {isSubmitting ? "در حال ارسال..." : "ثبت‌نام"}
             </Button>
           </form>
         </div>
@@ -674,7 +709,7 @@ function CorporateTrainingForm({ onClose, course }: { onClose: () => void; cours
   )
 }
 
-export default function CoursePageClient({ course }: { course: Course | undefined }) {
+export default function CoursePageClient({ course, slug }: { course: Course | undefined; slug?: string }) {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false)
   const [showConsultationForm, setShowConsultationForm] = useState(false)
   const [showCorporateTrainingForm, setShowCorporateTrainingForm] = useState(false)
@@ -806,23 +841,25 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                 <div>
                   <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance leading-tight">{course.title}</h1>
                   <p className="text-xl mb-4 opacity-90 leading-relaxed">{course.subtitle}</p>
-                  <p className="text-lg mb-6 opacity-80 leading-relaxed">{course.shortDescription}</p>
+                  <p className="text-xl font-semibold mb-6 opacity-95 leading-relaxed">{course.shortDescription}</p>
 
-                  <div className="flex flex-wrap items-center gap-4 mb-6 text-sm">
-                    <div className="flex items-center gap-2">
-                      {/* <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" /> */}
-                      {/* <span className="font-bold">5.0</span> */}
-                      {/* <span className="opacity-80">({course.testimonials.length} نظر)</span> */}
+                  {course.rating && course.reviewCount && course.rating > 0 && course.reviewCount > 0 && (
+                    <div className="flex flex-wrap items-center gap-4 mb-6 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                        <span className="font-bold">{course.rating}</span>
+                        <span className="opacity-80">({course.reviewCount} نظر)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {/* <Users className="w-5 h-5" /> */}
+                        {/* <span>150+ دانشجو</span> */}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {/* <Award className="w-5 h-5" /> */}
+                        {/* <span>گواهینامه معتبر</span> */}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {/* <Users className="w-5 h-5" /> */}
-                      {/* <span>150+ دانشجو</span> */}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {/* <Award className="w-5 h-5" /> */}
-                      {/* <span>گواهینامه معتبر</span> */}
-                    </div>
-                  </div>
+                  )}
 
                   <div className="flex items-center gap-3">
                     <Image
@@ -866,30 +903,33 @@ export default function CoursePageClient({ course }: { course: Course | undefine
             </div>
           </section>
 
-          <section className="bg-muted/30 py-12 border-y">
-            <div className="container mx-auto px-4">
-              <h2 className="text-2xl font-bold text-center mb-8 flex items-center justify-center gap-3">
-                <Building2 className="w-5 h-5 text-primary" />
-                شرکت‌هایی که کارکنانشان در این دوره شرکت کرده‌اند
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-                {companies.map((company, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100"
-                  >
-                    <Image
-                      src={company.logo || "/placeholder.svg"}
-                      alt={company.name}
-                      width={120}
-                      height={60}
-                      className="object-contain"
-                    />
-                  </div>
-                ))}
+          {/* Only show companies section for specific courses */}
+          {slug && !["backend-nodejs", "art-of-coding"].includes(slug) && (
+            <section className="bg-muted/30 py-12 border-y">
+              <div className="container mx-auto px-4">
+                <h2 className="text-2xl font-bold text-center mb-8 flex items-center justify-center gap-3">
+                  <Building2 className="w-5 h-5 text-primary" />
+                  شرکت‌هایی که کارکنانشان در این دوره شرکت کرده‌اند
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+                  {companies.map((company, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100"
+                    >
+                      <Image
+                        src={company.logo || "/placeholder.svg"}
+                        alt={company.name}
+                        width={120}
+                        height={60}
+                        className="object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           <div className="container mx-auto px-4 py-12">
             <div className="grid lg:grid-cols-3 gap-8">
@@ -968,18 +1008,18 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                     شرح دوره
                   </h2>
 
-                  <div className="mb-8">
-                    <Image
-                      src="/classroom-whiteboard-system-design-training.jpg"
-                      alt="کلاس آموزشی سیستم دیزاین"
-                      width={1200}
-                      height={400}
-                      className="w-full rounded-lg shadow-md"
-                    />
-                    <p className="text-sm text-muted-foreground text-center mt-3">
-                      تصویری از یکی از جلسات آموزشی دوره سیستم دیزاین
-                    </p>
-                  </div>
+                  {course.descriptionImage && (
+                    <div className="mb-8">
+                      <Image
+                        src={course.descriptionImage}
+                        alt={`کلاس آموزشی ${course.title}`}
+                        width={1200}
+                        height={400}
+                        className="w-full rounded-lg shadow-md"
+                      />
+                    
+                    </div>
+                  )}
 
                   <div className="prose prose-lg max-w-none">
                     <p className="text-foreground leading-relaxed text-pretty text-lg">{course.description}</p>
@@ -1220,11 +1260,29 @@ export default function CoursePageClient({ course }: { course: Course | undefine
 
               <div className="lg:col-span-1">
                 <div className="sticky top-4 space-y-4">
-                  <Card className="border-2 shadow-lg">
+                  <Card className="border-2 shadow-lg relative overflow-hidden">
+                    {/* Black Friday Banner */}
+                    <div className="bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white py-4 px-4 text-center relative">
+                      <div className="absolute inset-0 bg-black/10"></div>
+                      <div className="relative z-10">
+                        <p className="text-sm font-bold mb-1">🔥 پیشنهاد ویژه بلک فرایدی 🔥</p>
+                        <p className="text-3xl font-black mb-1">۴۰٪ تخفیف</p>
+                        <div className="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block mt-1">
+                          <p className="text-sm font-bold">⏰ فقط تا ۸ آذر</p>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <CardContent className="p-6">
                       <div className="mb-6 text-center">
+                        {/* Original Price - Strikethrough */}
+                        <div className="mb-2">
+                          <span className="text-2xl text-muted-foreground line-through opacity-60">{course.price}</span>
+                          <span className="text-sm text-muted-foreground mr-2">تومان</span>
+                        </div>
+                        {/* Discounted Price */}
                         <div className="flex items-baseline justify-center gap-2 mb-2">
-                          <span className="text-5xl font-bold text-primary">{course.price}</span>
+                          <span className="text-5xl font-bold text-red-600">{Math.round(course.priceNumber * 0.6).toLocaleString('fa-IR')}</span>
                           <span className="text-xl text-muted-foreground">تومان</span>
                         </div>
                       </div>
@@ -1245,7 +1303,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                       <div className="space-y-3 mb-6 text-sm">
                         <div className="flex items-center gap-3">
                           <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                          <span>{course.duration} لایو آموزشی و عملی</span>
+                          <span>{course.schedule}</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
@@ -1280,7 +1338,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                             setShowCorporateTrainingForm(true)
                           }}
                         >
-                          برگزاری دوره برای تیم/شرکت شما
+                          شخصی‌سازی دوره برای تیم/شرکت شما
                         </Button>
                       </div>
 
@@ -1299,7 +1357,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                       </div>
 
                       <div className="border-t pt-4">
-                        <p className="text-sm font-medium mb-3">اگر فکر می‌کنید این دوره مفیده، به اشتراک بگذاریدش:</p>
+                        <p className="text-sm font-medium mb-3">دوره رو به اشتراک بگذارید تا دیگران هم ببینن</p>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
@@ -1365,7 +1423,7 @@ export default function CoursePageClient({ course }: { course: Course | undefine
                   variant="outline"
                   className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 cursor-pointer"
                 >
-                  <Link href="/courses" onClick={() => trackClarityEvent("view_other_courses_clicked")}>
+                  <Link href="/" onClick={() => trackClarityEvent("view_other_courses_clicked")}>
                     مشاهده سایر دوره‌ها
                   </Link>
                 </Button>

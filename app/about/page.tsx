@@ -111,14 +111,14 @@ export default function AboutPage() {
                 <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-xl border-4 border-primary-foreground/20">
                   <Image
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/me.JPG-tqJ1OwFOE0UCE3o5iseDdWBwDAFhdF.jpeg"
-                    alt="بهراد زارعی"
+                    alt="بهراد زاری"
                     fill
                     className="object-cover"
                   />
                 </div>
               </div>
               <div className="flex-1 text-center md:text-right">
-                <h1 className="text-4xl font-bold mb-4">بهراد زارعی</h1>
+                <h1 className="text-4xl font-bold mb-4">بهراد زاری</h1>
                 <p className="text-xl mb-2">مهندس نرم‌افزار</p>
                 <div className="flex flex-col gap-2 text-sm opacity-90">
                   <p>تلفن: ۰۹۱۲ ۵۳۳ ۶۳۸۳</p>

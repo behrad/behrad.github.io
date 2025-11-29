@@ -6,7 +6,7 @@ export function Navigation() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-            مسیر رشد معمار نرم افزار
+            مسیر رشد تفکر مهندسی نرم افزار
           </Link>
           <div className="flex gap-6">
             <Link href="/" className="text-foreground hover:text-primary transition-colors font-medium">

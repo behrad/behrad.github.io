@@ -17,6 +17,13 @@ export function Footer() {
               لینکدین
             </Link>
             <Link
+              href="https://t.me/mindfulsoft"
+              target="_blank"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              کانال تلگرام
+            </Link>
+            <Link
               href="mailto:behradz@gmail.com"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >

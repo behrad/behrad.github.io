@@ -5,6 +5,35 @@ import { Footer } from "@/components/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { coursesData } from "@/data/courses"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "دوره‌های آموزش برنامه نویسی، هنر کد نویسی و طراحی سیستم | بهراد زاری",
+  description: "آموزش برنامه نویسی حرفه‌ای، هنر کد نویسی، کد نویسی تمیز (Clean Code)، طراحی سیستم، سیستم دیزاین، تفکر سیستمی و معماری نرم افزار. دوره‌های عملی با پروژه‌های واقعی.",
+  keywords: [
+    "آموزش برنامه نویسی",
+    "دوره برنامه نویسی",
+    "هنر کد نویسی",
+    "کد نویسی تمیز",
+    "clean code",
+    "طراحی سیستم",
+    "سیستم دیزاین",
+    "system design",
+    "تفکر سیستمی",
+    "معماری نرم افزار",
+    "software architecture",
+    "آموزش Node.js",
+    "میکروسرویس",
+    "microservices",
+    "مقیاس پذیری",
+    "scalability",
+  ],
+  openGraph: {
+    title: "دوره‌های آموزش برنامه نویسی و طراحی سیستم",
+    description: "آموزش برنامه نویسی، هنر کد نویسی، طراحی سیستم و سیستم دیزاین با بهراد زاری",
+    type: "website",
+  },
+}
 
 export default function HomePage() {
   const courses = [

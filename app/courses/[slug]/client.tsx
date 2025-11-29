@@ -862,7 +862,7 @@ export default function CoursePageClient({ course, slug }: { course: Course | un
               <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div>
                   <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance leading-tight">{course.title}</h1>
-                  <p className="text-xl mb-4 opacity-90 leading-relaxed">{course.subtitle}</p>
+                  <p className="text-xl mb-6 opacity-90 leading-relaxed">{course.subtitle}</p>
                   <p className="text-xl font-semibold mb-6 opacity-95 leading-relaxed">{course.shortDescription}</p>
 
                   {course.rating && course.reviewCount && course.rating > 0 && course.reviewCount > 0 && (

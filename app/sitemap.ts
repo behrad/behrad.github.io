@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { coursesData } from '@/data/courses'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://behradz.com'
+  const baseUrl = 'https://behrad.tech'
   
   // Get all course slugs
   const courseUrls = Object.keys(coursesData).map((slug) => ({

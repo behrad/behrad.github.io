@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fa_IR',
-    url: 'https://behradz.com',
+    url: 'https://behrad.tech',
     siteName: 'مسیر رشد تفکر مهندسی نرم افزار',
     title: 'آموزش برنامه نویسی، طراحی سیستم و سیستم دیزاین',
     description: 'دوره‌های آموزش برنامه نویسی، هنر کد نویسی، کد نویسی تمیز، طراحی سیستم و سیستم دیزاین با بهراد زاری',
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   alternates: {
-    canonical: 'https://behradz.com',
+    canonical: 'https://behrad.tech',
   },
 }
 

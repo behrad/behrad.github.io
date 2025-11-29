@@ -450,7 +450,7 @@ function RegistrationForm({ onClose, course }: { onClose: () => void; course?: C
 
             <div>
               <label className="block text-sm font-medium mb-2">
-                مبلغ <span className="font-bold text-red-600">{Math.round((course?.priceNumber || 0) * 0.6).toLocaleString('fa-IR')} تومان</span> را به شماره کارت <span className="font-bold text-primary">۶۳۶۲۱۴۱۰۸۲۴۴۳۶۱۶</span> بنام بهراد زاری بانک ملی (آینده سابق) واریز نموده و عکس فیش بانکی رو ارسال کنید
+                مبلغ <span className="font-bold text-primary">{course?.price} تومان</span> را به شماره کارت <span className="font-bold text-primary">۶۳۶۲۱۴۱۰۸۲۴۴۳۶۱۶</span> بنام بهراد زاری بانک ملی (آینده سابق) واریز نموده و عکس فیش بانکی رو ارسال کنید
               </label>
               <label className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer block">
                 <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
@@ -538,6 +538,28 @@ function ConsultationForm({ onClose, course }: { onClose: () => void; course?: C
             <button onClick={onClose} className="text-muted-foreground hover:text-foreground cursor-pointer">
               <X className="w-6 h-6" />
             </button>
+          </div>
+
+          {/* Telegram Option */}
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-center mb-3">
+              می‌تونید مستقیماً از طریق تلگرام با من در ارتباط باشید یا فرم زیر رو پر کنید
+            </p>
+            <Button asChild className="w-full bg-transparent hover:bg-primary hover:text-white" variant="outline">
+              <Link href="https://t.me/bzari" target="_blank" className="flex items-center justify-center gap-2">
+                <Send className="w-4 h-4" />
+                ارسال پیام در تلگرام
+              </Link>
+            </Button>
+          </div>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-muted-foreground">یا</span>
+            </div>
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -1260,29 +1282,11 @@ export default function CoursePageClient({ course, slug }: { course: Course | un
 
               <div className="lg:col-span-1">
                 <div className="sticky top-4 space-y-4">
-                  <Card className="border-2 shadow-lg relative overflow-hidden">
-                    {/* Black Friday Banner */}
-                    <div className="bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white py-4 px-4 text-center relative">
-                      <div className="absolute inset-0 bg-black/10"></div>
-                      <div className="relative z-10">
-                        <p className="text-sm font-bold mb-1">🔥 پیشنهاد ویژه بلک فرایدی 🔥</p>
-                        <p className="text-3xl font-black mb-1">۴۰٪ تخفیف</p>
-                        <div className="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block mt-1">
-                          <p className="text-sm font-bold">⏰ فقط تا ۸ آذر</p>
-                        </div>
-                      </div>
-                    </div>
-                    
+                  <Card className="border-2 shadow-lg">
                     <CardContent className="p-6">
                       <div className="mb-6 text-center">
-                        {/* Original Price - Strikethrough */}
-                        <div className="mb-2">
-                          <span className="text-2xl text-muted-foreground line-through opacity-60">{course.price}</span>
-                          <span className="text-sm text-muted-foreground mr-2">تومان</span>
-                        </div>
-                        {/* Discounted Price */}
                         <div className="flex items-baseline justify-center gap-2 mb-2">
-                          <span className="text-5xl font-bold text-red-600">{Math.round(course.priceNumber * 0.6).toLocaleString('fa-IR')}</span>
+                          <span className="text-5xl font-bold text-primary">{course.price}</span>
                           <span className="text-xl text-muted-foreground">تومان</span>
                         </div>
                       </div>
@@ -1402,9 +1406,9 @@ export default function CoursePageClient({ course, slug }: { course: Course | un
 
           <section className="bg-gradient-to-br from-[#0f2942] via-[#1b4173] to-[#0f2942] text-white py-20">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="text-4xl font-bold mb-4">آماده شروع هستید؟</h2>
+              <h2 className="text-4xl font-bold mb-4">به شما قول میدم</h2>
               <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                همین حالا ثبت‌نام کنید و مهارت‌های طراحی سیستم خود را به سطح بعدی ببرید
+                بعد از این دوره نگاه و طرز فکرتون نسبت به کارهایی که تا الان میکردید تغییر می‌کنه
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -1415,7 +1419,7 @@ export default function CoursePageClient({ course, slug }: { course: Course | un
                     setShowRegistrationForm(true)
                   }}
                 >
-                  ثبت‌نام در دوره
+                  ثبت‌نام در این دوره
                 </Button>
                 <Button
                   asChild
@@ -1427,16 +1431,6 @@ export default function CoursePageClient({ course, slug }: { course: Course | un
                     مشاهده سایر دوره‌ها
                   </Link>
                 </Button>
-              </div>
-              <div className="mt-8 flex items-center justify-center gap-6 text-sm opacity-75">
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5" />
-                  <span>گارانتی بازگشت وجه</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Gift className="w-5 h-5" />
-                  <span>جلسه اول رایگان</span>
-                </div>
               </div>
             </div>
           </section>

@@ -71,13 +71,8 @@ export default function HomePage() {
             />
           </div>
           <div className="relative container mx-auto px-4 text-center">
-            {/* Black Friday Alert Banner */}
-            <div className="inline-block bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white px-6 py-3 rounded-full mb-4 shadow-2xl animate-pulse">
-              <p className="text-lg font-black">🔥 ۴۰٪ تخفیف بلک فرایدی - فقط تا ۸ آذر ⏰</p>
-            </div>
-            
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">دوره‌ و بوت کمپ‌ها</h1>
-            <p className="text-lg md:text-xl opacity-90">
+            <h1 className="text-3xl md:text-4xl font-bold mb-6">دوره‌ و بوت کمپ‌ها</h1>
+            <p className="text-lg md:text-xl opacity-90 leading-relaxed">
               این دوره ها ترکیبی از نئوری و مفاهیم عمقی و تجربه ۲۰ ساله من در توسعه نرم افزار هستن و می تونن در مسیر حرفه‌ای شما از یک برنامه نویس تا تک لید یا مدیر‌فنی مفید باشن تا تصمیمات بهتری در تیم و توسعه نرم افزار بگیرید
             </p>
           </div>
@@ -87,15 +82,7 @@ export default function HomePage() {
         <section className="container mx-auto px-4 py-12">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
-              <Card key={course.id} className="card-hover-lift flex flex-col overflow-hidden relative">
-                {/* Black Friday Badge */}
-                <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-red-600 to-orange-500 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-lg border-2 border-white">
-                  <div className="flex flex-col items-center">
-                    <span className="text-xs">🔥 بلک فرایدی</span>
-                    <span className="text-base">۴۰٪ تخفیف</span>
-                  </div>
-                </div>
-                
+              <Card key={course.id} className="card-hover-lift flex flex-col overflow-hidden">
                 {/* Course Image */}
                 <div className="relative h-48 w-full bg-gradient-to-br from-blue-100 to-blue-50 p-4">
                   <Image src={course.image || "/placeholder.svg"} alt={course.title} fill className="object-contain p-4" />
@@ -120,10 +107,7 @@ export default function HomePage() {
                   {/* Course Info */}
                   <div className="flex items-center justify-between text-sm mb-4 pt-3 border-t">
                     <span className="text-muted-foreground">{course.duration}</span>
-                    <div className="flex flex-col items-end">
-                      <span className="text-xs text-muted-foreground line-through opacity-60">{course.price}</span>
-                      <span className="font-bold text-red-600">{Math.round(coursesData[course.id as keyof typeof coursesData].priceNumber * 0.6).toLocaleString('fa-IR')} تومان</span>
-                    </div>
+                    <span className="font-bold text-primary">{course.price}</span>
                   </div>
 
                   <Button asChild className="w-full">
@@ -136,15 +120,20 @@ export default function HomePage() {
         </section>
 
         {/* CTA */}
-        <section className="bg-gradient-to-b from-blue-50/50 to-white py-12">
+        <section className="bg-gradient-to-br from-[#0f2942] via-[#1b4173] to-[#0f2942] text-white py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">سوال یا نیاز به مشاوره دارید؟</h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">سوال یا نیاز به مشاوره دارید؟</h2>
+            <p className="text-base md:text-lg opacity-90 mb-8">
               برای اطلاعات بیشتر درباره دوره‌ها با من تماس بگیرید
             </p>
-            <Button asChild size="lg">
-              <Link href="mailto:behradz@gmail.com">تماس با من</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
+                <Link href="mailto:behradz@gmail.com">تماس از طریق ایمیل</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary">
+                <Link href="https://t.me/bzari" target="_blank">تماس از طریق تلگرام</Link>
+              </Button>
+            </div>
           </div>
         </section>
       </main>

@@ -21,6 +21,7 @@ export const coursesData: { [key: string]: Course } = {
     language: "فارسی",
     certificate: true,
     image: "/sd1.jpeg",
+    descriptionImage: "/classroom-whiteboard-system-design-training.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     instructor: {
       name: "بهراد زاری",
@@ -211,6 +212,7 @@ export const coursesData: { [key: string]: Course } = {
     language: "فارسی",
     certificate: false,
     image: "/sd1.jpeg",
+    descriptionImage: "/classroom-whiteboard-system-design-training.jpg",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     instructor: {
       name: "بهراد زاری",
@@ -320,6 +322,7 @@ export const coursesData: { [key: string]: Course } = {
     language: "فارسی",
     certificate: false,
     image: "/sd2.jpeg",
+    descriptionImage: "/classroom-whiteboard-system-design-training.jpg",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     instructor: {
       name: "بهراد زاری",
@@ -420,6 +423,7 @@ export const coursesData: { [key: string]: Course } = {
     language: "فارسی",
     certificate: false,
     image: "/sd3.jpeg",
+    descriptionImage: "/classroom-whiteboard-system-design-training.jpg",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     instructor: {
       name: "بهراد زاری",
